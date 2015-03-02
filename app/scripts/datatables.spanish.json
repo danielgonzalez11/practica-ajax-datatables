@@ -1,10 +1,4 @@
-   'use strict';
-   $(document).ready(function() {
-       $('#miTabla').DataTable({
-           'processing': true,
-           'serverSide': true,
-           'ajax': 'php/cargar_doctores.php',
-           "language": {
+ {
                'sProcessing': 'Procesando...',
                'sLengthMenu': 'Mostrar _MENU_ registros',
                'sZeroRecords': 'No se encontraron resultados',
@@ -27,23 +21,4 @@
                    'sSortAscending': ': Activar para ordenar la columna de manera ascendente',
                    'sSortDescending': ': Activar para ordenar la columna de manera descendente'
                }
-           },
-           'columns': [{
-               'data': 'nombredoctor'
-           }, {
-               'data': 'numcolegiado'
-           }, {
-               'data': 'nombre'
-           }, {
-               'data': 'numcolegiado',
-               'render': function(data) {
-                   return '<a class="btn btn-primary" href=http://localhost/php/editar.php?numcolegiado=' + data + '>Editar</a>';
-               }
-           }, {
-               'data': 'numcolegiado',
-               'render': function(data) {
-                   return '<a class="btn btn-warning" href=http://localhost/php/borrar.php?numcolegiado=' + data + '>Borrar</a>';
-               }
-           }]
-       });
-   });
+           }
