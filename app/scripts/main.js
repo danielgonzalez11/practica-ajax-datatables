@@ -1,6 +1,6 @@
    'use strict';
    $(document).ready(function() {
-       $('#miTabla').DataTable({
+     var tabla =  $('#miTabla').DataTable({
            'destroy': true,
            'processing': true,
            'serverSide': true,
@@ -38,32 +38,66 @@
            }, {
                'data': 'numcolegiado',
                'render': function(data) {
-                   return '<a class="btn btn-primary" href=http://localhost/proyecto-datatables/php/editar_doctores.php?numcolegiado=' + data + '>Editar</a>';
+                return '<button type="button" class="btn btn-primary editarbtn" data-toggle="modal" data-target="#modalEditar">Editar</button>'  
                }
            }, {
                'data': 'numcolegiado',
                'render': function(data) {
-                   return '<a class="btn btn-danger" href=http://localhost/proyecto-datatables/php/borrar_doctores.php?numcolegiado=' + data + '>Borrar</a>';
+                return '<button type="button" class="btn btn-danger borrarbtn" data-toggle="modal" data-target="#modalBorrar">Borrar</button>'  
+                
+
                }
            }]
        });
 
       //cargar ventana al pulsar editar
-      $('#miTabla').on('click', '.editarbtn', function(e) {
-           e.preventDefault();
-           $('#tabla').fadeOut(100);
-           $('#formulario').fadeIn(100);
-
+      $('#miTabla').on('click', '.editarbtn', function() {
+           
+           //$('#tabla').fadeOut(100);
+           //$('#modalEditar').fadeIn(100);
            var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
            $('#nombredoctor').val(aData.nombredoctor);
            $('#numcolegiado').val(aData.numcolegiado);
            //cargar las clínicas , seleccionado a las que pertenezca el doctor
-           
-
+           //NO ME PASA LOS DATOS !!!!!!!!!!!!!!!!!!!!!!!!!!!!
            $('#clinicas').val(aData.nombre);
           
-           
+       });
+
+      $('#miTabla').on('click', '.borrarbtn', function() {
+           var nRow = $(this).parents('tr')[0];
+           var aData = tabla.row(nRow).data();
+           var numcolegiado = aData.numcolegiado;
+
+            $('body').on('click', '#borrar', function() {
+              $('#modalBorrar').modal('hide');
+             $.ajax({
+                 /*en principio el type para api restful sería delete pero no lo recogeríamos en $_REQUEST, así que queda como POST*/
+                 type: 'POST',
+                 dataType: 'json',
+                 url: 'php/borrar_doctores.php',
+                 //estos son los datos que queremos actualizar, en json:
+                 data: {
+                     num: numcolegiado
+                 },
+                 error: function(xhr, status, error) {
+                     //mostraríamos alguna ventana de alerta con el error
+                     alert("Ha entrado en error");
+                 },
+                 success: function(data) {
+                  
+                     //obtenemos el mensaje del servidor, es un array!!!
+                     //var mensaje = (data["mensaje"]) //o data[0], en función del tipo de array!!
+                     //actualizamos datatables:
+                     /*para volver a pedir vía ajax los datos de la tabla*/
+                     tabla.fnDraw();
+                 },
+                 complete: {
+                     //si queremos hacer algo al terminar la petición ajax
+                 }
+             });
+         });
 
        });
    });

@@ -43,10 +43,15 @@
             </div>
         </div>
     </div>
-    <div id="formulario" class="row">
-            <div class="col-md-4 col-md-offset-3">
-                <!--/*el formulario es aproximadamente un copy-paste de http://getbootstrap.com/css/#forms -->
-                <form class="form-horizontal">
+  <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="EditarLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Editar Doctor</h4>
+	      </div>
+	      <div class="modal-body">
+	        	<form class="form-horizontal">
                     <div>
                         <div class="form-group">
                             <label for="idClinica" class="col-sm-2 control-label">Nombre:</label>
@@ -63,23 +68,45 @@
                         <div class="form-group">
                             <label for="clinicas" class="col-sm-2 control-label">Clínica:</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="clinicas">
-                                    <option value="-1">Seleccione una clínica</option>
+                                <select class="form-control" multiple id="clinicas">
+                                    <option value="CENTRO IMPLANTOLOGICO BARCELONA">CENTRO IMPLANTOLOGICO BARCELONA</option>
+                                    <option value="CENTRO DE IMPLANTOLOGÍA MADRID">CENTRO DE IMPLANTOLOGÍA MADRID</option>
+                                    <option value="CENTRO DE IMPLANTOLOGÍA VIGO">CENTRO DE IMPLANTOLOGÍA VIGO</option>
+                                    <option value="CENTRO DE IMPLANTOLOGÍA ZARAGOZA">CENTRO DE IMPLANTOLOGÍA ZARAGOZA</option>
+                                    <option value="CENTRO DE IMPLANTOLOGÍA VALENCIA">CENTRO DE IMPLANTOLOGÍA VALENCIA</option>
+                                    <option value="CENTRO DE IMPLANTOLOGÍA SANTANDER">CENTRO DE IMPLANTOLOGÍA SANTANDER</option>
+                                    <option value="CENTRO DE IMPLANTOLOGÍA TARRAGONA">CENTRO DE IMPLANTOLOGÍA TARRAGONA</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-10 col-sm-offset-2">
-                                <button id="enviar" type="submit" class="btn btn-primary">Enviar</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
-
-            </div>
-        </div>
-
+                    </div>        
+	      </div>
+	      <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	            <button id="enviar" type="submit" class="btn btn-primary">Cambiar</button>
+	      </div>
+	      </form>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- SIGUIENTE MODAL-->
+<div class="modal fade" id="modalBorrar" tabindex="-1" role="dialog" aria-labelledby="BorrarLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Borrar Doctor</h4>
+	      </div>
+	      <div class="modal-body">
+       			<p>¿Está seguro de que quiere borrar este doctor?</p>
+	      </div>
+	      <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	            <button id="borrar" type="submit" class="btn btn-primary">Borrar</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

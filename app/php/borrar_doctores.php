@@ -19,12 +19,12 @@ if (!mysql_select_db($gaSql['db'], $gaSql['link'])) {
 }
 mysql_query('SET names utf8');
 //$_REQUEST['numcolegiado'] = 1;
-if (isset($_REQUEST['numcolegiado'])) {
+if (isset($_REQUEST['num'])) {
     // param was set in the query string
-    if (empty($_REQUEST['numcolegiado'])) {
+    if (empty($_REQUEST['num'])) {
         return "El parámetro numcolegiado viene vacio!";
     }
-    $numcolegiado = $_REQUEST['numcolegiado'];
+    $numcolegiado = $_REQUEST['num'];
 }
 /*
  * SQL queries
