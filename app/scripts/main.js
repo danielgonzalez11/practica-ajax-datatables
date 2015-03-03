@@ -1,6 +1,7 @@
    'use strict';
    $(document).ready(function() {
        $('#miTabla').DataTable({
+           'destroy': true,
            'processing': true,
            'serverSide': true,
            'ajax': 'php/cargar_doctores.php',
@@ -37,13 +38,32 @@
            }, {
                'data': 'numcolegiado',
                'render': function(data) {
-                   return '<a class="btn btn-primary" href=http://localhost/php/editar.php?numcolegiado=' + data + '>Editar</a>';
+                   return '<a class="btn btn-primary" href=http://localhost/proyecto-datatables/php/editar_doctores.php?numcolegiado=' + data + '>Editar</a>';
                }
            }, {
                'data': 'numcolegiado',
                'render': function(data) {
-                   return '<a class="btn btn-warning" href=http://localhost/php/borrar.php?numcolegiado=' + data + '>Borrar</a>';
+                   return '<a class="btn btn-danger" href=http://localhost/proyecto-datatables/php/borrar_doctores.php?numcolegiado=' + data + '>Borrar</a>';
                }
            }]
+       });
+
+      //cargar ventana al pulsar editar
+      $('#miTabla').on('click', '.editarbtn', function(e) {
+           e.preventDefault();
+           $('#tabla').fadeOut(100);
+           $('#formulario').fadeIn(100);
+
+           var nRow = $(this).parents('tr')[0];
+           var aData = miTabla.row(nRow).data();
+           $('#nombredoctor').val(aData.nombredoctor);
+           $('#numcolegiado').val(aData.numcolegiado);
+           //cargar las clínicas , seleccionado a las que pertenezca el doctor
+           
+
+           $('#clinicas').val(aData.nombre);
+          
+           
+
        });
    });
