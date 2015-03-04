@@ -24,26 +24,26 @@ if (isset($_REQUEST['num'])) {
     if (empty($_REQUEST['num'])) {
         return "El parámetro numcolegiado viene vacio!";
     }
-    $numcolegiado = $_REQUEST['num'];
+    $id = $_REQUEST['num'];
 
 }
 /*
  * SQL queries
  * Get data to display
  */
-$query = "delete from doctores where numcolegiado=" . $numcolegiado;
+$query = "delete from doctores where id_doctor=" . $id;
 $query_res = mysql_query($query);
 // Comprobar el resultado
 if (!$query_res) {
     if (mysql_errno() == 1451) {
-        $mensaje = "Imposible borrar doctor, tiene prescripciones";
+        $mensaje = "Imposible borrar doctor, tiene prescripciones o albaranes";
         $estado = mysql_errno();
     } else {
         $mensaje = 'Error en la consulta: ' . mysql_error() . "\n";
         $estado = mysql_errno();
     }
 } else {
-    $mensaje = "Actualización correcta";
+    $mensaje = "Doctor borrado correctamente";
     $estado = 0;
 }
 $resultado = array();

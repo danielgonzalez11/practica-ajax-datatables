@@ -31,7 +31,8 @@ $primaryKey = 'numcolegiado';
 $columns = array(
     array( 'db' => 'nombredoctor', 'dt' => 'nombredoctor' ),
     array( 'db' => 'numcolegiado',  'dt' => 'numcolegiado' ),
-    array( 'db' => 'nombre',   'dt' => 'nombre' )
+    array( 'db' => 'nombre',   'dt' => 'nombre' ),
+    array( 'db' => 'id_doctor',   'dt' => 'id_doctor')
 );
 // SQL server connection information
 $sql_details = array(

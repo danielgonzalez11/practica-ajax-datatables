@@ -1,4 +1,5 @@
    'use strict';
+   var id_doctor;
    $(document).ready(function() {
      var tabla =  $('#miTabla').DataTable({
            'destroy': true,
@@ -36,12 +37,15 @@
            }, {
                'data': 'nombre'
            },{
-               'data': 'numcolegiado',
+               'data': 'id_doctor',
+               'visible': false
+           },{
+               'data': 'id_doctor',
                'render': function(data) {
                 return '<button type="button" class="btn btn-primary editarbtn" data-toggle="modal" data-target="#modalEditar">Editar</button>'  
                 }
            }, {
-               'data': 'numcolegiado',
+               'data': 'id_doctor',
                'render': function(data) {
                 return '<button type="button" class="btn btn-danger borrarbtn" data-toggle="modal" data-target="#modalBorrar">Borrar</button>'  
                 
@@ -56,7 +60,7 @@
            //$('#tabla').fadeOut(100);
            //$('#modalEditar').fadeIn(100);
            var nRow = $(this).parents('tr')[0];
-           var aData = miTabla.row(nRow).data();
+           var aData = tabla.row(nRow).data();
            $('#nombredoctor').val(aData.nombredoctor);
            $('#numcolegiado').val(aData.numcolegiado);
            //cargar las clínicas , seleccionado a las que pertenezca el doctor
@@ -68,18 +72,20 @@
       $('#miTabla').on('click', '.borrarbtn', function() {
            var nRow = $(this).parents('tr')[0];
            var aData = tabla.row(nRow).data();
-           var numcolegiado = aData.numcolegiado;
+           id_doctor = aData.id_doctor;
+         });
 
-            $('body').on('click', '#borrar', function() {
-              $('#modalBorrar').modal('hide');
-             $.ajax({
+           
+      $('#borrar').click(function(){
+          $('#modalBorrar').modal('hide');
+          $.ajax({
                  /*en principio el type para api restful sería delete pero no lo recogeríamos en $_REQUEST, así que queda como POST*/
                  type: 'POST',
                  dataType: 'json',
                  url: 'php/borrar_doctores.php',
                  //estos son los datos que queremos actualizar, en json:
                  data: {
-                     num: numcolegiado
+                     num: id_doctor
                  },
                  error: function(xhr, status, error) {
                      //mostraríamos alguna ventana de alerta con el error
@@ -89,7 +95,13 @@
                   
                      //obtenemos el mensaje del servidor, es un array!!!
                      var mensaje = data["mensaje"]; //o data[0], en función del tipo de array!!
-                     alert(mensaje);
+                     if(data["estado"]==0){
+                          $.growl({ style: 'notice',location: 'tr',title: "OK, TODO CORRECTO", message: data["mensaje"]});
+                     }
+                     else{
+                          //$.growl.error({ message: mensaje });
+                          $.growl({ style: 'error',location: 'tr',title: data["estado"], message: data["mensaje"]});
+                     }
                      //actualizamos datatables:
                      /*para volver a pedir vía ajax los datos de la tabla*/
                      tabla.fnDraw();
@@ -98,7 +110,5 @@
                      //si queremos hacer algo al terminar la petición ajax
                  }
              });
-         });
-
-       });
-   });
+      });
+});
