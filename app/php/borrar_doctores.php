@@ -25,6 +25,7 @@ if (isset($_REQUEST['num'])) {
         return "El parámetro numcolegiado viene vacio!";
     }
     $numcolegiado = $_REQUEST['num'];
+
 }
 /*
  * SQL queries
@@ -35,7 +36,7 @@ $query_res = mysql_query($query);
 // Comprobar el resultado
 if (!$query_res) {
     if (mysql_errno() == 1451) {
-        $mensaje = "Imposible borrar doctor, tiene dependencias. Borre las dependencias";
+        $mensaje = "Imposible borrar doctor, tiene prescripciones";
         $estado = mysql_errno();
     } else {
         $mensaje = 'Error en la consulta: ' . mysql_error() . "\n";
@@ -46,7 +47,7 @@ if (!$query_res) {
     $estado = 0;
 }
 $resultado = array();
-$resultado[] = array(
+$resultado = array(
     'mensaje' => $mensaje,
     'estado' => $estado
 );

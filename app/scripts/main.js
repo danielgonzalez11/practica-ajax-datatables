@@ -35,11 +35,11 @@
                'data': 'numcolegiado'
            }, {
                'data': 'nombre'
-           }, {
+           },{
                'data': 'numcolegiado',
                'render': function(data) {
                 return '<button type="button" class="btn btn-primary editarbtn" data-toggle="modal" data-target="#modalEditar">Editar</button>'  
-               }
+                }
            }, {
                'data': 'numcolegiado',
                'render': function(data) {
@@ -88,7 +88,8 @@
                  success: function(data) {
                   
                      //obtenemos el mensaje del servidor, es un array!!!
-                     //var mensaje = (data["mensaje"]) //o data[0], en función del tipo de array!!
+                     var mensaje = data["mensaje"]; //o data[0], en función del tipo de array!!
+                     alert(mensaje);
                      //actualizamos datatables:
                      /*para volver a pedir vía ajax los datos de la tabla*/
                      tabla.fnDraw();
