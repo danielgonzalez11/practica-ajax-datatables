@@ -17,22 +17,24 @@
     <link rel="stylesheet" href="styles/jquery.growl.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+   
   </head>
 <body>
     <div class="container-fluid">
     	 <div class="page-header">
     	 	<h1>DATATABLES DOCTORES</h1>
-            <button class="btn btn-success" data-toggle="modal" data-target="#modalAdd">Nuevo Doctor</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#modalAdd" id="addNuevo">Nuevo Doctor</button>
             <a href="https://github.com/danielgonzalez11/practica-ajax-datatables" class="btn btn-primary">Ver en GitHub</a>
         </div>
         <div id="tabla" class="row">
             <div class="col-md-12">
-                <table id="miTabla" class="table" width="100%" cellspacing="0">
+                <table id="miTabla" class="table table-hover" width="100%" cellspacing="0">
                     <thead>
                         <th>Doctor</th>
                         <th>N°Colegiado</th>
                         <th>Clínica</th>
                         <th>id_doctor</th>
+                        <th>id_clinica</th>
                         <th>Editar</th>
                         <th>Borrar</th>
                     </thead>
@@ -43,6 +45,7 @@
                         <th>N°Colegiado</th>
                         <th>Clínica</th>
                         <th>id_doctor</th>
+                        <th>id_clinica</th>
                         <th>Editar</th>
                         <th>Borrar</th>
                     </tfoot>
@@ -50,7 +53,7 @@
 
             </div>
         </div>
-    </div>
+  </div>
   <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="EditarLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -76,13 +79,13 @@
                             <label for="clinicas" class="col-sm-2 control-label">Clínica:</label>
                             <div class="col-sm-10">
                                 <select class="form-control" multiple name="clinicas" id="clinicas">
-                                    <option value="CENTRO IMPLANTOLOGICO BARCELONA">CENTRO IMPLANTOLOGICO BARCELONA</option>
-                                    <option value="CENTRO DE IMPLANTOLOGÍA MADRID">CENTRO DE IMPLANTOLOGÍA MADRID</option>
-                                    <option value="CENTRO DE IMPLANTOLOGÍA VIGO">CENTRO DE IMPLANTOLOGÍA VIGO</option>
-                                    <option value="CENTRO DE IMPLANTOLOGÍA ZARAGOZA">CENTRO DE IMPLANTOLOGÍA ZARAGOZA</option>
-                                    <option value="CENTRO DE IMPLANTOLOGÍA VALENCIA">CENTRO DE IMPLANTOLOGÍA VALENCIA</option>
-                                    <option value="CENTRO DE IMPLANTOLOGÍA SANTANDER">CENTRO DE IMPLANTOLOGÍA SANTANDER</option>
-                                    <option value="CENTRO DE IMPLANTOLOGÍA TARRAGONA">CENTRO DE IMPLANTOLOGÍA TARRAGONA</option>
+                                     <option value="1">CENTRO IMPLANTOLOGICO BARCELONA</option>
+                                    <option value="2">CENTRO DE IMPLANTOLOGÍA MADRID</option>
+                                    <option value="3">CENTRO DE IMPLANTOLOGÍA VIGO</option>
+                                    <option value="4">CENTRO DE IMPLANTOLOGÍA ZARAGOZA</option>
+                                    <option value="5">CENTRO DE IMPLANTOLOGÍA VALENCIA</option>
+                                    <option value="6">CENTRO DE IMPLANTOLOGÍA SANTANDER</option>
+                                    <option value="15">CENTRO DE IMPLANTOLOGÍA TARRAGONA</option>
                                 </select>
                             </div>
                         </div>

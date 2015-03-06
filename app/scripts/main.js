@@ -2,7 +2,6 @@
    var id_doctor;
    $(document).ready(function() {
      var tabla =  $('#miTabla').DataTable({
-           'destroy': true,
            'processing': true,
            'serverSide': true,
            'ajax': 'php/cargar_doctores.php',
@@ -31,13 +30,24 @@
                }
            },
            'columns': [{
-               'data': 'nombredoctor'
+               'data': 'nombredoctor',
+               'render': function(data){
+                return '<a  href="#" class=" editarbtn"data-toggle="modal" data-target="#modalEditar">'+data+'</a>';
+                //'<button type="button" class="btn btn-primary editarbtn" data-toggle="modal" data-target="#modalEditar">Editar</button>'
+               }
+
            }, {
                'data': 'numcolegiado'
            }, {
-               'data': 'nombre'
+               'data': 'nombre',
+               'render': function(data){
+                return '<li>' + data + '</li><br/>';
+               }
            },{
                'data': 'id_doctor',
+               'visible': false
+           },{
+               'data': 'id_clinica',
                'visible': false
            },{
                'data': 'id_doctor',
@@ -107,7 +117,9 @@
                      }
                      //actualizamos datatables:
                      /*para volver a pedir vía ajax los datos de la tabla*/
-                     tabla.fnDraw();
+                     
+                     //tabla.fnDraw();
+                     tabla.draw();
                  },
                  complete: {
                      //si queremos hacer algo al terminar la petición ajax
@@ -162,7 +174,8 @@
                      }
                      //actualizamos datatables:
                      /*para volver a pedir vía ajax los datos de la tabla*/
-                     tabla.fnDraw();
+                     //tabla.fnDraw();
+                     tabla.draw();
                  },
                  complete: {
                      //si queremos hacer algo al terminar la petición ajax
@@ -180,6 +193,10 @@
            $('#numcolegiado').val(aData.numcolegiado);
            $('#clinicas').val(aData.nombre);
            id_doctor = aData.id_doctor;
+
+          var str = aData.id_clinica;
+          str = str.split(",");
+          $('#clinicas').val(str);
        });
 
 
@@ -189,6 +206,12 @@
            id_doctor = aData.id_doctor;
          });
 
+      $('body').on('click', '#addNuevo', function() {
+            $('#numcolegiadoA').val('');
+            $('#nombredoctorA').val('');
+            
+
+         });
            
       $('#borrar').click(function(){
           $('#modalBorrar').modal('hide');
@@ -218,7 +241,8 @@
                      }
                      //actualizamos datatables:
                      /*para volver a pedir vía ajax los datos de la tabla*/
-                     tabla.fnDraw();
+                     //tabla.fnDraw();
+                     tabla.draw();
                  },
                  complete: {
                      //si queremos hacer algo al terminar la petición ajax

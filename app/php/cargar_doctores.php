@@ -19,7 +19,7 @@
  */
  
 // DB table to use
-$table = 'vDoctores';
+$table = 'vDoctores2';
  
 // Table's primary key
 $primaryKey = 'numcolegiado';
@@ -32,9 +32,17 @@ $columns = array(
     array( 'db' => 'nombredoctor', 'dt' => 'nombredoctor' ),
     array( 'db' => 'numcolegiado',  'dt' => 'numcolegiado' ),
     array( 'db' => 'nombre',   'dt' => 'nombre' ),
-    array( 'db' => 'id_doctor',   'dt' => 'id_doctor')
+    array( 'db' => 'id_doctor',   'dt' => 'id_doctor'),
+    array( 'db' => 'id_clinica',   'dt' => 'id_clinica')
 );
 // SQL server connection information
+/*$sql_details = array(
+    'user' => 'danielgonzalez_d',
+    'pass' => 'danielgonzalez11',
+    'db'   => 'danielgonzalez_Clinicas',
+    'host' => 'localhost'
+);*/
+
 $sql_details = array(
     'user' => 'root',
     'pass' => 'root',
