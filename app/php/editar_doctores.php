@@ -22,19 +22,12 @@ mysql_query('SET names utf8');
  * SQL queries
  * Get data to display
  */
-$nombre = $_POST["id_clinica"];
-$numcolegiado = $_POST["nombre"];
-$clinica = $_POST["localidad"];
+$nombredoctor = $_POST['nombre'];
+$numcolegiado = $_POST['num'];
+$id_doctor = $_POST['id'];
+$clinica = $_POST["clinicas"];
 /* Consulta UPDATE */
-$query = "UPDATE clinicas SET 
-            nombre = '" . $nombre . "', 
-            localidad = '" . $localidad . "', 
-            provincia = '" . $provincia . "', 
-            direccion = '" . $direccion . "', 
-            cp = '" . $cp . "',
-            id_tarifa = '" . $id_tarifa . "',
-            cif = '" . $cif . "'
-            WHERE id_clinica = " . $id;
+$query = "UPDATE doctores SET numcolegiado = $numcolegiado, nombre = $nombredoctor where id_doctor = $id_doctor";
 //mysql_query($query, $gaSql['link']) or fatal_error('MySQL Error: ' . mysql_errno());
 /*En función del resultado correcto o no, mostraremos el mensaje que corresponda*/
 $query_res = mysql_query($query);
@@ -45,11 +38,12 @@ if (!$query_res) {
 }
 else
 {
+
     $mensaje = "Actualización correcta";
     $estado = 0;
 }
 $resultado = array();
- $resultado[] = array(
+ $resultado = array(
       'mensaje' => $mensaje,
       'estado' => $estado
    );

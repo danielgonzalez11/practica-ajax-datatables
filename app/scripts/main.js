@@ -53,21 +53,135 @@
                }
            }]
        });
+      ///^[ñA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$/
+      //validaciones,letras, espacios y ñ
+      $.validator.addMethod("lettersonly", function(value, element) {
+        return this.optional(element) || /^[ñA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$/i.test(value);
+      }, "Introduce solo letras");
+      //validar editar doctores
+      $('#eD').validate({
+          rules: {
+              nombredoctor:{
+                required: true,
+                lettersonly: true
+              },
+              numcolegiado:{
+                digits: true
+              },
+              clinicas:{
+                required: true,
+                minlength: 1
+              }
+         },
+         submitHandler: function() {
+          var numcolegiado= $('#numcolegiado').val();
+          var nombre =  $('#nombredoctor').val();
+          var clinicas=  $('#clinicas').val();     
+          $('#modalEditar').modal('hide');
+            $.ajax({
+                 /*en principio el type para api restful sería delete pero no lo recogeríamos en $_REQUEST, así que queda como POST*/
+                 type: 'POST',
+                 dataType: 'json',
+                 url: 'php/editar_doctores.php',
+                 //estos son los datos que queremos actualizar, en json:
+                 data: {
+                     num: numcolegiado,
+                     nombre: nombre,
+                     clinicas: clinicas,
+                     id: id_doctor
+                 },
+                 error: function(xhr, status, error) {
+                     //mostraríamos alguna ventana de alerta con el error
+                     alert("Ha entrado en error");
+                 },
+                 success: function(data) {
+                  
+                     //obtenemos el mensaje del servidor, es un array!!!
+                     var mensaje = data["mensaje"]; //o data[0], en función del tipo de array!!
+                     if(data["estado"]==0){
+                          $.growl({ style: 'notice',location: 'tr',title: "OK, TODO CORRECTO", message: data["mensaje"]});
+                     }
+                     else{
+                          //$.growl.error({ message: mensaje });
+                          $.growl({ style: 'error',location: 'tr',title: data["estado"], message: data["mensaje"]});
+                     }
+                     //actualizamos datatables:
+                     /*para volver a pedir vía ajax los datos de la tabla*/
+                     tabla.fnDraw();
+                 },
+                 complete: {
+                     //si queremos hacer algo al terminar la petición ajax
+                 }
+             });
+         }         
+      });
+
+      //validar "añadirDoctor"
+      $('#aD').validate({
+          rules: {
+              nombredoctorA : {
+                         required: true,
+                        lettersonly: true 
+              },
+              numcolegiadoA: {
+                     digits: true
+              },
+              clinicasA: {
+                    required: true,
+                    minlength: 1
+              }
+          },
+         submitHandler: function() {
+            var numd = $('#numcolegiadoA').val();
+            var nombred =$('#nombredoctorA').val();
+            var clinicasd = $('#clinicasA').val();
+            
+            $('#modalAdd').modal('hide');
+            $.ajax({
+                 type: 'POST',
+                 dataType: 'json',
+                 url: 'php/add_doctores.php',
+                 data: {
+                     numd: numd,
+                     nombred: nombred,
+                     clinicasd: clinicasd
+                 },
+                 error: function(xhr, status, error) {
+                     //mostraríamos alguna ventana de alerta con el error
+                     alert("Ha entrado en error");
+                 },
+                 success: function(data) {
+                     //obtenemos el mensaje del servidor, es un array!!!
+                     var mensaje = data["mensaje"]; //o data[0], en función del tipo de array!!
+                     if(data["estado"]==0){
+                          $.growl({ style: 'notice',location: 'tr',title: "OK, Doctor Añadido", message: data["mensaje"]});
+                     }
+                     else{
+                          //$.growl.error({ message: mensaje });
+                          $.growl({ style: 'error',location: 'tr',title: data["estado"], message: data["mensaje"]});
+                     }
+                     //actualizamos datatables:
+                     /*para volver a pedir vía ajax los datos de la tabla*/
+                     tabla.fnDraw();
+                 },
+                 complete: {
+                     //si queremos hacer algo al terminar la petición ajax
+                 }
+             });
+         }
+         
+      });
 
       //cargar ventana al pulsar editar
       $('#miTabla').on('click', '.editarbtn', function() {
-           
-           //$('#tabla').fadeOut(100);
-           //$('#modalEditar').fadeIn(100);
            var nRow = $(this).parents('tr')[0];
            var aData = tabla.row(nRow).data();
            $('#nombredoctor').val(aData.nombredoctor);
            $('#numcolegiado').val(aData.numcolegiado);
-           //cargar las clínicas , seleccionado a las que pertenezca el doctor
-           //NO ME PASA LOS DATOS !!!!!!!!!!!!!!!!!!!!!!!!!!!!
            $('#clinicas').val(aData.nombre);
-          
+           id_doctor = aData.id_doctor;
        });
+
 
       $('#miTabla').on('click', '.borrarbtn', function() {
            var nRow = $(this).parents('tr')[0];
