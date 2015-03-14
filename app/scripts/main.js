@@ -66,8 +66,8 @@
       ///^[ñA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$/
       //validaciones,letras, espacios y ñ
       $.validator.addMethod("lettersonly", function(value, element) {
-        return this.optional(element) || /^[ñA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$/i.test(value);
-      }, "Introduce solo letras");
+    	return this.optional(element) || /^[a-z ñáéíóú]+$/i.test(value);
+		}, "Introduce solo letras");
       //validar editar doctores
       $('#eD').validate({
           rules: {

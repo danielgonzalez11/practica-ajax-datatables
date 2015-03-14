@@ -46,7 +46,7 @@ $columns = array(
 $sql_details = array(
     'user' => 'root',
     'pass' => 'root',
-    'db'   => 'Clinicas',
+    'db'   => 'Clinicas2',
     'host' => 'localhost'
 );
  

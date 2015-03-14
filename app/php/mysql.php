@@ -1,7 +1,7 @@
 <?php
 $gaSql['user'] = "root";
 $gaSql['password'] = "root";
-$gaSql['db'] = "Clinicas";
+$gaSql['db'] = "Clinicas2";
 $gaSql['server'] = "localhost";
 /*
 $gaSql['user'] = "danielgonzalez_d";
